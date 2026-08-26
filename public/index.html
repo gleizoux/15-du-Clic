@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le 15 du Clic</title>
+<link rel="icon" href="/logo.svg">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <img src="/logo.svg" alt="" width="40" height="40">
+  <h1>Le 15 du Clic</h1>
+  <a href="/admin.html">Admin</a>
+</header>
+
+<main>
+  <label for="salle"><strong>Choisissez la salle :</strong></label><br>
+  <select id="salle"></select>
+
+  <div id="toolbar"></div>
+
+  <div id="plan-wrap">
+    <div class="empty-msg">Sélectionnez une salle ci-dessus.</div>
+  </div>
+</main>
+
+<dialog id="modal">
+  <div class="modal-inner">
+    <h2 id="modal-title">Signalement</h2>
+
+    <label for="prenom"><strong>Votre prénom</strong> (pour le suivi)</label>
+    <input type="text" id="prenom" placeholder="Ex. Sophie" required
+           style="width:100%;padding:0.5rem;border-radius:8px;border:1px solid #ccc;font-size:1rem;margin:0.4rem 0 1rem;">
+
+    <div class="type-choice">
+      <label><input type="radio" name="type" value="Panne matériel" checked> Panne matériel</label>
+      <label><input type="radio" name="type" value="Bug"> Bug</label>
+      <label><input type="radio" name="type" value="Lenteur"> Lenteur</label>
+      <label><input type="radio" name="type" value="Dégradation constatée"> Dégradation constatée</label>
+    </div>
+
+    <label for="description">Précisions (facultatif)</label>
+    <textarea id="description" placeholder="Décrivez le problème en quelques mots..."></textarea>
+
+    <div style="margin-top:0.8rem;">
+      <label for="photo">Photo (facultatif)</label><br>
+      <input type="file" id="photo" accept="image/*" capture="environment">
+    </div>
+
+    <div class="modal-actions">
+      <button class="secondary" id="btn-annuler">Annuler</button>
+      <button class="primary" id="btn-envoyer">Envoyer</button>
+    </div>
+  </div>
+</dialog>
+
+<div id="toast"></div>
+
+<script src="/app.js"></script>
+</body>
+</html>

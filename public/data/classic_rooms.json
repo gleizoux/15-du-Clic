@@ -1,0 +1,146 @@
+[
+  {
+    "code": "012",
+    "label": "012",
+    "vp": "EB-695Wi",
+    "son": "Pas d'enceinte"
+  },
+  {
+    "code": "109",
+    "label": "109",
+    "vp": "EB-685W",
+    "son": "Enceintes Epson non fixées"
+  },
+  {
+    "code": "111",
+    "label": "111",
+    "vp": "EB-695Wi",
+    "son": "Pas d'enceinte"
+  },
+  {
+    "code": "113",
+    "label": "113",
+    "vp": "EB-475Wi",
+    "son": "Epson OK"
+  },
+  {
+    "code": "124",
+    "label": "124",
+    "vp": "EB-695Wi",
+    "son": "Selon la version : enceinte Logitech noir OK (1er enreg.) / pas d'enceinte (2e enreg.)"
+  },
+  {
+    "code": "125",
+    "label": "125",
+    "vp": "EB-685W",
+    "son": "Epson OK"
+  },
+  {
+    "code": "126",
+    "label": "126",
+    "vp": "EB-475Wi",
+    "son": "Selon la version : Epson OK (1er enreg.) / pas d'enceinte (2e enreg.)"
+  },
+  {
+    "code": "201",
+    "label": "201",
+    "vp": "EB-695Wi",
+    "son": "Epson OK"
+  },
+  {
+    "code": "204",
+    "label": "204",
+    "vp": "EB-575Wi",
+    "son": "Epson OK"
+  },
+  {
+    "code": "205",
+    "label": "205 (MLDS)",
+    "vp": "EB-575Wi",
+    "son": "Epson OK"
+  },
+  {
+    "code": "208",
+    "label": "208",
+    "vp": "EB-695Wi",
+    "son": "Epson OK"
+  },
+  {
+    "code": "222",
+    "label": "222",
+    "vp": "EB-575Wi",
+    "son": "Epson OK"
+  },
+  {
+    "code": "224",
+    "label": "224",
+    "vp": "EB-760Wi",
+    "son": "Epson OK"
+  },
+  {
+    "code": "225",
+    "label": "225",
+    "vp": "EB-575Wi",
+    "son": "Epson OK"
+  },
+  {
+    "code": "226",
+    "label": "226",
+    "vp": "EB-695Wi",
+    "son": "Enceinte Epson OK"
+  },
+  {
+    "code": "230",
+    "label": "230",
+    "vp": "EB-760Wi",
+    "son": "Epson OK"
+  },
+  {
+    "code": "233",
+    "label": "233",
+    "vp": "EB-685W",
+    "son": "Sortie son via HDMI (projecteur)"
+  },
+  {
+    "code": "236",
+    "label": "236",
+    "vp": "EB-575Wi",
+    "son": "Epson OK"
+  },
+  {
+    "code": "321",
+    "label": "321",
+    "vp": "EB-685W",
+    "son": "Enceintes + sono OK"
+  },
+  {
+    "code": "322",
+    "label": "322",
+    "vp": "EB-695Wi",
+    "son": "Enceintes Unika (obsolètes)"
+  },
+  {
+    "code": "324",
+    "label": "324",
+    "vp": "EB-695Wi",
+    "son": "Enceintes Altec noir OK"
+  },
+  {
+    "code": "326",
+    "label": "326",
+    "vp": "EB-695Wi",
+    "son": "Enceinte Epson OK"
+  },
+  {
+    "code": "331",
+    "label": "331",
+    "vp": "EB-475Wi",
+    "son": "Epson OK"
+  },
+  {
+    "code": "Salle polyvalente",
+    "label": "Salle polyvalente",
+    "vp": "EB-96W",
+    "son": "Enceinte \"Rondson\" (marque incertaine) OK"
+  }
+]

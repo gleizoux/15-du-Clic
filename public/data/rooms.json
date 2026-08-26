@@ -1,0 +1,1236 @@
+[
+  {
+    "code": "S015",
+    "title": "PLAN DE SALLE — SALLE INFORMATIQUE S015",
+    "posts_max": 12,
+    "orientation": "portrait",
+    "note": "Salle mutualisée avec le GRETA (mention \"Greta\" sur le brouillon d'origine, près du VPI).",
+    "elements": [
+      {
+        "kind": "grid",
+        "x": 0.7,
+        "y": 2.0,
+        "grid": [
+          [
+            4
+          ],
+          [
+            3
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ],
+        "caption": "Colonne P01–P04",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.3,
+        "y": 2.0,
+        "grid": [
+          [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        ],
+        "caption": "Rangée P05–P10",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 6.4,
+        "y": 2.0,
+        "grid": [
+          [
+            11
+          ],
+          [
+            12
+          ]
+        ],
+        "caption": "Bureau P11–P12",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 6.4,
+        "y": 3.6,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": "VPI (+ GRETA)",
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "S102",
+    "title": "PLAN DE SALLE — SALLE INFORMATIQUE S102",
+    "posts_max": 18,
+    "orientation": "portrait",
+    "elements": [
+      {
+        "kind": "hexpod",
+        "x": 0.9,
+        "y": 2.0,
+        "w": 2.1,
+        "h": 1.75,
+        "values": [
+          6,
+          null,
+          5,
+          4,
+          3,
+          2
+        ],
+        "caption": "Îlot P02–P06"
+      },
+      {
+        "kind": "hexpod",
+        "x": 4.2,
+        "y": 2.0,
+        "w": 2.1,
+        "h": 1.75,
+        "values": [
+          11,
+          10,
+          9,
+          8,
+          7,
+          null
+        ],
+        "caption": "Îlot P07–P11"
+      },
+      {
+        "kind": "hexpod",
+        "x": 0.9,
+        "y": 4.3,
+        "w": 2.1,
+        "h": 1.75,
+        "values": [
+          16,
+          15,
+          14,
+          13,
+          null,
+          17
+        ],
+        "caption": "Îlot P13–P17"
+      },
+      {
+        "kind": "grid",
+        "x": 4.6,
+        "y": 4.5,
+        "grid": [
+          [
+            18,
+            "VPI2"
+          ]
+        ],
+        "caption": "Poste 18 + VPI 2",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 0.9,
+        "y": 6.5,
+        "grid": [
+          [
+            1
+          ]
+        ],
+        "caption": "Poste 01 (armoire à côté)",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 4.6,
+        "y": 6.5,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": null,
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "S108",
+    "title": "PLAN DE SALLE — SALLE INFORMATIQUE S108",
+    "posts_max": 17,
+    "orientation": "portrait",
+    "elements": [
+      {
+        "kind": "hexpod",
+        "x": 0.9,
+        "y": 2.0,
+        "w": 2.1,
+        "h": 1.75,
+        "values": [
+          8,
+          9,
+          10,
+          6,
+          null,
+          7
+        ],
+        "caption": "Îlot P06–P10"
+      },
+      {
+        "kind": "hexpod",
+        "x": 4.2,
+        "y": 2.0,
+        "w": 2.1,
+        "h": 1.75,
+        "values": [
+          15,
+          11,
+          12,
+          13,
+          14,
+          null
+        ],
+        "caption": "Îlot P11–P15"
+      },
+      {
+        "kind": "grid",
+        "x": 0.9,
+        "y": 4.3,
+        "grid": [
+          [
+            16
+          ]
+        ],
+        "caption": "Poste 16",
+        "ncols": null
+      },
+      {
+        "kind": "hexpod",
+        "x": 0.9,
+        "y": 5.3,
+        "w": 2.1,
+        "h": 1.75,
+        "values": [
+          3,
+          4,
+          5,
+          1,
+          null,
+          2
+        ],
+        "caption": "Îlot P01–P05"
+      },
+      {
+        "kind": "grid",
+        "x": 4.6,
+        "y": 4.3,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": "VPI (au-dessus)",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 4.6,
+        "y": 5.3,
+        "grid": [
+          [
+            17
+          ]
+        ],
+        "caption": "Poste 17 (le + bas)",
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "S106",
+    "title": "PLAN DE SALLE — SALLE INFORMATIQUE S106",
+    "posts_max": 16,
+    "orientation": "portrait",
+    "elements": [
+      {
+        "kind": "grid",
+        "x": 0.8,
+        "y": 2.0,
+        "grid": [
+          [
+            4
+          ],
+          [
+            3
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ],
+        "caption": "Colonne P01–P04",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.4,
+        "y": 2.0,
+        "grid": [
+          [
+            5,
+            12
+          ],
+          [
+            6,
+            11
+          ],
+          [
+            7,
+            10
+          ],
+          [
+            8,
+            9
+          ]
+        ],
+        "caption": "Îlots P05–P12",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 4.4,
+        "y": 2.0,
+        "grid": [
+          [
+            13
+          ],
+          [
+            14
+          ],
+          [
+            15
+          ],
+          [
+            16
+          ]
+        ],
+        "caption": "Colonne P13–P16",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.4,
+        "y": 4.7,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": null,
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "S110",
+    "title": "PLAN DE SALLE — SALLE INFORMATIQUE S110",
+    "posts_max": 18,
+    "orientation": "portrait",
+    "elements": [
+      {
+        "kind": "grid",
+        "x": 0.7,
+        "y": 2.0,
+        "grid": [
+          [
+            5
+          ],
+          [
+            6
+          ],
+          [
+            7
+          ],
+          [
+            8
+          ],
+          [
+            9
+          ]
+        ],
+        "caption": "Rangée gauche",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.3,
+        "y": 2.0,
+        "grid": [
+          [
+            4,
+            12
+          ],
+          [
+            3,
+            11
+          ],
+          [
+            2,
+            10
+          ]
+        ],
+        "caption": "Îlot central",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 4.1,
+        "y": 2.0,
+        "grid": [
+          [
+            13,
+            18
+          ],
+          [
+            14,
+            17
+          ],
+          [
+            15,
+            16
+          ]
+        ],
+        "caption": "Îlot droite",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.3,
+        "y": 4.2,
+        "grid": [
+          [
+            1
+          ]
+        ],
+        "caption": "Poste 01",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 4.1,
+        "y": 4.2,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": null,
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "S112",
+    "title": "PLAN DE SALLE — SALLE INFORMATIQUE S112",
+    "posts_max": 16,
+    "orientation": "portrait",
+    "elements": [
+      {
+        "kind": "grid",
+        "x": 0.7,
+        "y": 2.0,
+        "grid": [
+          [
+            10,
+            9
+          ],
+          [
+            11,
+            12
+          ]
+        ],
+        "caption": "Îlot 1",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 3.4,
+        "y": 2.0,
+        "grid": [
+          [
+            8,
+            7
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "caption": "Îlot 2",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 0.7,
+        "y": 4.3,
+        "grid": [
+          [
+            13,
+            14
+          ],
+          [
+            16,
+            15
+          ]
+        ],
+        "caption": "Îlot 3",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 3.4,
+        "y": 4.3,
+        "grid": [
+          [
+            4,
+            3
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "caption": "Îlot 4",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 3.4,
+        "y": 6.6,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": null,
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "SIIV",
+    "title": "PLAN DE SALLE — SALLE INFO CDI (SIIV)",
+    "posts_max": 8,
+    "orientation": "landscape",
+    "note": "Brouillon d'origine sur photo pivotée à 90° — numérotation à confirmer avec le RRUP si besoin.",
+    "elements": [
+      {
+        "kind": "grid",
+        "x": 0.7,
+        "y": 2.0,
+        "grid": [
+          [
+            8,
+            7,
+            6,
+            5,
+            4,
+            3
+          ]
+        ],
+        "caption": "Rangée P03–P08 (en haut)",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 9.6,
+        "y": 3.2,
+        "grid": [
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ],
+        "caption": "P01–P02",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 5.3,
+        "y": 6.0,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": null,
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "S202",
+    "title": "PLAN DE SALLE — SALLE INFORMATIQUE S202",
+    "posts_max": 16,
+    "orientation": "portrait",
+    "elements": [
+      {
+        "kind": "grid",
+        "x": 0.8,
+        "y": 2.0,
+        "grid": [
+          [
+            16,
+            15
+          ],
+          [
+            12,
+            11
+          ]
+        ],
+        "caption": "Îlot P11–P12 / P15–P16",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.6,
+        "y": 2.0,
+        "grid": [
+          [
+            14,
+            13
+          ],
+          [
+            10,
+            9
+          ]
+        ],
+        "caption": "Îlot P09–P10 / P13–P14",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 0.8,
+        "y": 3.6,
+        "grid": [
+          [
+            8,
+            7
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "caption": "Îlot P03–P04 / P07–P08",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.6,
+        "y": 3.6,
+        "grid": [
+          [
+            6,
+            5
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "caption": "Îlot P01–P02 / P05–P06",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.6,
+        "y": 5.2,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": null,
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "S206",
+    "title": "PLAN DE SALLE — SALLE INFORMATIQUE S206",
+    "posts_max": 15,
+    "orientation": "portrait",
+    "note": "Agencement d'origine en U (postes répartis sur 3 côtés) ; simplifié ici en colonnes/rangée pour la lisibilité du plan.",
+    "elements": [
+      {
+        "kind": "grid",
+        "x": 0.7,
+        "y": 2.0,
+        "grid": [
+          [
+            9
+          ],
+          [
+            10
+          ],
+          [
+            11
+          ],
+          [
+            12
+          ],
+          [
+            13
+          ],
+          [
+            14
+          ],
+          [
+            15
+          ]
+        ],
+        "caption": "Colonne P09–P15",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.4,
+        "y": 2.0,
+        "grid": [
+          [
+            5,
+            6,
+            7,
+            8
+          ]
+        ],
+        "caption": "Rangée P05–P08",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 4.4,
+        "y": 2.0,
+        "grid": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ]
+        ],
+        "caption": "Colonne P01–P04",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 4.4,
+        "y": 4.6,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": null,
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "S207",
+    "title": "PLAN DE SALLE — SALLE INFORMATIQUE S207",
+    "posts_max": 16,
+    "orientation": "portrait",
+    "elements": [
+      {
+        "kind": "grid",
+        "x": 0.8,
+        "y": 2.0,
+        "grid": [
+          [
+            16,
+            15
+          ],
+          [
+            12,
+            11
+          ]
+        ],
+        "caption": "Îlot P11–P12 / P15–P16",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.6,
+        "y": 2.0,
+        "grid": [
+          [
+            14,
+            13
+          ],
+          [
+            10,
+            9
+          ]
+        ],
+        "caption": "Îlot P09–P10 / P13–P14",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 0.8,
+        "y": 3.6,
+        "grid": [
+          [
+            8,
+            7
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "caption": "Îlot P03–P04 / P07–P08",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.6,
+        "y": 3.6,
+        "grid": [
+          [
+            6,
+            5
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "caption": "Îlot P01–P02 / P05–P06",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.6,
+        "y": 5.2,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": null,
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "S334",
+    "title": "PLAN DE SALLE — SALLE INFORMATIQUE S334",
+    "posts_max": 10,
+    "orientation": "landscape",
+    "note": "Postes alignés le long d'un mur non rectiligne (mur \"tordu\" sur le brouillon) — l'inclinaison est approximative sur ce plan.",
+    "elements": [
+      {
+        "kind": "freecells",
+        "cells": [
+          [
+            8.2,
+            1.9,
+            10
+          ],
+          [
+            7.9799999999999995,
+            2.52,
+            9
+          ],
+          [
+            7.759999999999999,
+            3.1399999999999997,
+            8
+          ],
+          [
+            7.539999999999999,
+            3.76,
+            7
+          ],
+          [
+            7.319999999999999,
+            4.38,
+            6
+          ],
+          [
+            7.1,
+            5.0,
+            5
+          ],
+          [
+            6.879999999999999,
+            5.619999999999999,
+            4
+          ],
+          [
+            6.659999999999999,
+            6.24,
+            3
+          ],
+          [
+            6.4399999999999995,
+            6.859999999999999,
+            2
+          ],
+          [
+            6.219999999999999,
+            7.48,
+            1
+          ]
+        ],
+        "caption": "Rangée le long du mur (P10 en haut, P01 en bas)",
+        "caption_xy": [
+          6.6,
+          1.7
+        ]
+      },
+      {
+        "kind": "grid",
+        "x": 2.0,
+        "y": 5.6,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": null,
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "S332",
+    "title": "PLAN DE SALLE — SALLE INFORMATIQUE S332",
+    "posts_max": 8,
+    "orientation": "portrait",
+    "elements": [
+      {
+        "kind": "grid",
+        "x": 0.7,
+        "y": 2.0,
+        "grid": [
+          [
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        ],
+        "caption": "Rangée P04–P08 (en haut)",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 0.7,
+        "y": 3.6,
+        "grid": [
+          [
+            3
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ],
+        "caption": "Colonne P01–P03",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 5.0,
+        "y": 5.4,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": null,
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "S330",
+    "title": "PLAN DE SALLE — SALLE INFORMATIQUE S330",
+    "posts_max": 8,
+    "orientation": "landscape",
+    "note": "Un 7e poste de la rangée principale était rayé/annulé sur le brouillon — non repris ici. Aucun VPI repéré sur le brouillon — à confirmer.",
+    "elements": [
+      {
+        "kind": "grid",
+        "x": 0.8,
+        "y": 2.0,
+        "grid": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ],
+          [
+            6
+          ]
+        ],
+        "caption": "Colonne P01–P06",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.4,
+        "y": 2.0,
+        "grid": [
+          [
+            7,
+            8
+          ]
+        ],
+        "caption": "Rangée P07–P08",
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "SCDI",
+    "title": "PLAN DE SALLE — SCDI",
+    "posts_max": 13,
+    "orientation": "portrait",
+    "elements": [
+      {
+        "kind": "grid",
+        "x": 2.6,
+        "y": 2.0,
+        "grid": [
+          [
+            8,
+            9
+          ],
+          [
+            7,
+            10
+          ],
+          [
+            6,
+            11
+          ],
+          [
+            5,
+            12
+          ]
+        ],
+        "caption": "Îlot central P05–P12",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 0.7,
+        "y": 4.6,
+        "grid": [
+          [
+            4,
+            3,
+            2,
+            1
+          ]
+        ],
+        "caption": "Rangée P01–P04 (bas gauche)",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 5.3,
+        "y": 4.6,
+        "grid": [
+          [
+            13
+          ]
+        ],
+        "caption": "Poste 13",
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "MS-SMS",
+    "title": "PLAN DE SALLE — PLATEAU MS (SMS)",
+    "posts_max": 17,
+    "posts_min": 12,
+    "orientation": "landscape",
+    "note": "Salle mutualisée avec la Salle info MS (SHIL) — voir plan_salle_MS-SHIL.odt. La numérotation des postes poursuit celle de cette salle (à partir de P12).",
+    "elements": [
+      {
+        "kind": "grid",
+        "x": 0.8,
+        "y": 2.0,
+        "grid": [
+          [
+            17,
+            16,
+            15
+          ]
+        ],
+        "caption": "Rangée P15–P17",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 4.6,
+        "y": 2.0,
+        "grid": [
+          [
+            14
+          ],
+          [
+            13
+          ],
+          [
+            12
+          ]
+        ],
+        "caption": "Colonne P12–P14",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 4.6,
+        "y": 4.2,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": "VPI",
+        "ncols": null
+      }
+    ]
+  },
+  {
+    "code": "MS-SHIL",
+    "title": "PLAN DE SALLE — SALLE INFO MS (SHIL)",
+    "posts_max": 11,
+    "orientation": "portrait",
+    "note": "Salle mutualisée avec le Plateau MS (SMS) — voir plan_salle_MS-SMS.odt, dont la numérotation des postes poursuit celle-ci (P12 et suivants).",
+    "elements": [
+      {
+        "kind": "grid",
+        "x": 0.7,
+        "y": 2.0,
+        "grid": [
+          [
+            8
+          ],
+          [
+            9
+          ],
+          [
+            10
+          ],
+          [
+            11
+          ]
+        ],
+        "caption": "Colonne P08–P11",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.3,
+        "y": 2.0,
+        "grid": [
+          [
+            "VPI"
+          ]
+        ],
+        "caption": null,
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.3,
+        "y": 2.6,
+        "grid": [
+          [
+            1,
+            2
+          ]
+        ],
+        "caption": "L : P01, P02 à droite de P01",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 2.3,
+        "y": 3.7,
+        "grid": [
+          [
+            7
+          ]
+        ],
+        "caption": "(sous le L)",
+        "ncols": null
+      },
+      {
+        "kind": "grid",
+        "x": 3.9,
+        "y": 2.0,
+        "grid": [
+          [
+            3
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ],
+          [
+            6
+          ]
+        ],
+        "caption": "Colonne P03–P06",
+        "ncols": null
+      }
+    ]
+  }
+]

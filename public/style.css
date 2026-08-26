@@ -1,0 +1,169 @@
+:root {
+  --bleu: #1f3864;
+  --bleu-clair: #dce6f4;
+  --orange: #fce4d6;
+  --orange-txt: #843c0c;
+  --gris: #808080;
+  --fond: #f4f6fb;
+  --ok: #2e7d32;
+  --danger: #b3261e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--fond);
+  color: #222;
+}
+
+header {
+  background: var(--bleu);
+  color: white;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  font-size: 1.3rem;
+  margin: 0;
+  flex: 1 1 auto;
+}
+
+header a {
+  color: white;
+  font-size: 0.85rem;
+  text-decoration: underline;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+select#salle {
+  font-size: 1.1rem;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#toolbar {
+  margin: 1rem 0;
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.btn-equip {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.9rem 1.3rem;
+  border-radius: 10px;
+  border: 2px solid var(--bleu);
+  background: white;
+  color: var(--bleu);
+  cursor: pointer;
+}
+.btn-equip:active { background: var(--bleu-clair); }
+
+#plan-wrap {
+  background: white;
+  border-radius: 10px;
+  padding: 0.5rem;
+  overflow-x: auto;
+  border: 1px solid #ddd;
+}
+
+svg#plan { width: 100%; height: auto; display: block; }
+
+.seat {
+  cursor: pointer;
+}
+.seat rect, .seat polygon {
+  stroke: #2e5496;
+  stroke-width: 2;
+  fill: var(--bleu-clair);
+}
+.seat.vpi rect, .seat.vpi polygon {
+  fill: var(--orange);
+}
+.seat:active rect, .seat:active polygon {
+  fill: #ffe699;
+}
+.seat text {
+  fill: var(--bleu);
+  font-weight: bold;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+.seat.vpi text { fill: var(--orange-txt); }
+.seat .code {
+  font-size: 0.11px;
+  font-weight: normal;
+  fill: #555;
+}
+
+.caption {
+  font-size: 0.13px;
+  fill: var(--gris);
+  font-weight: bold;
+  text-anchor: middle;
+}
+
+.empty-msg {
+  padding: 2rem;
+  text-align: center;
+  color: #777;
+}
+
+/* --- modale de signalement --- */
+dialog#modal {
+  border: none;
+  border-radius: 12px;
+  padding: 0;
+  width: 92%;
+  max-width: 480px;
+}
+dialog#modal::backdrop { background: rgba(0,0,0,0.5); }
+
+.modal-inner { padding: 1.2rem; }
+.modal-inner h2 { margin-top: 0; font-size: 1.15rem; color: var(--bleu); }
+
+.type-choice { display: flex; flex-direction: column; gap: 0.5rem; margin: 0.8rem 0; }
+.type-choice label {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem; border: 1px solid #ccc; border-radius: 8px; cursor: pointer;
+}
+.type-choice input { transform: scale(1.3); }
+
+textarea#description {
+  width: 100%; min-height: 4.5rem; padding: 0.5rem;
+  border-radius: 8px; border: 1px solid #ccc; font-family: inherit; font-size: 1rem;
+}
+
+.modal-actions { display: flex; justify-content: flex-end; gap: 0.6rem; margin-top: 1rem; }
+
+button.primary {
+  background: var(--bleu); color: white; border: none;
+  padding: 0.7rem 1.3rem; border-radius: 8px; font-size: 1rem; cursor: pointer;
+}
+button.secondary {
+  background: none; color: var(--bleu); border: 1px solid var(--bleu);
+  padding: 0.7rem 1.1rem; border-radius: 8px; font-size: 1rem; cursor: pointer;
+}
+
+#toast {
+  position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%);
+  background: var(--ok); color: white; padding: 0.8rem 1.2rem; border-radius: 8px;
+  display: none; z-index: 50;
+}
+#toast.error { background: var(--danger); }
