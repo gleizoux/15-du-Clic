@@ -4,14 +4,19 @@
 
 function checkAuth(request, env) {
   const auth = request.headers.get("Authorization") || "";
-  const expected = "Basic " + btoa(`admin:${env.ADMIN_PASSWORD}`);
-  if (auth !== expected) {
-    return new Response("Accès restreint", {
-      status: 401,
-      headers: { "WWW-Authenticate": 'Basic realm="Le 15 du Clic - admin"' },
-    });
+  if (auth.startsWith("Basic ")) {
+    try {
+      const decoded = atob(auth.slice(6));
+      const password = decoded.slice(decoded.indexOf(":") + 1);
+      if (password === env.ADMIN_PASSWORD) return null;
+    } catch (e) {
+      // identifiants mal formés -> refusé ci-dessous
+    }
   }
-  return null;
+  return new Response("Accès restreint", {
+    status: 401,
+    headers: { "WWW-Authenticate": 'Basic realm="Le 15 du Clic - admin"' },
+  });
 }
 
 async function handleReportPost(request, env) {
