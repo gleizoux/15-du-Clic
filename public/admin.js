@@ -30,7 +30,7 @@ function render() {
   }
 
   let html = "<table><thead><tr>" +
-    "<th>Date</th><th>Salle</th><th>Poste</th><th>Prénom</th><th>Type</th><th>Description</th><th>Photo</th><th>Statut</th>" +
+    "<th>Date</th><th>Salle</th><th>Poste</th><th>Prénom</th><th>Type</th><th>Description</th><th>Statut</th>" +
     "</tr></thead><tbody>";
 
   for (const r of rows) {
@@ -41,7 +41,6 @@ function render() {
       `<td>${r.prenom || ""}</td>` +
       `<td>${r.type}</td>` +
       `<td>${(r.description || "").replace(/</g, "&lt;")}</td>` +
-      `<td>${r.photo_key ? `<a class="photo-link" target="_blank" href="/api/photo/${encodeURIComponent(r.photo_key)}">Voir</a>` : "—"}</td>` +
       `<td>
         <select class="statut-select" data-id="${r.id}">
           <option value="nouveau" ${r.statut === "nouveau" ? "selected" : ""}>Nouveau</option>

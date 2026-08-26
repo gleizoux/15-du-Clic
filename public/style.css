@@ -112,6 +112,35 @@ svg#plan { width: 100%; height: auto; display: block; }
   fill: #555;
 }
 
+.seat.signale rect, .seat.signale polygon {
+  fill: #f7d1ce;
+  stroke: var(--danger);
+}
+.seat.signale text { fill: var(--danger); }
+
+.btn-equip.signale {
+  border-color: var(--danger);
+  background: #fdecea;
+  color: var(--danger);
+}
+
+#legende {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.pastille {
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.pastille.signale { background: var(--danger); }
+
 .caption {
   font-size: 0.13px;
   fill: var(--gris);

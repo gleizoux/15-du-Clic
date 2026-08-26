@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "15-du-clic",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-25",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "public",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "le_15_du_clic_db",
+      "database_id": "42bb960c-2c87-4471-8de3-c87c929844a0"
+    }
+  ]
+}

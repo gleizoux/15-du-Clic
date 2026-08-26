@@ -9,6 +9,26 @@ const HEX_OFFSETS = [
 let LAB_ROOMS = [];
 let CLASSIC_ROOMS = [];
 let current = null; // { salle, poste } en attente de signalement
+let ACTIVE_SALLE = null; // salle actuellement affichée
+let ACTIVE = new Set(); // clés "salle||poste" ayant un signalement non résolu
+
+async function fetchStatuts() {
+  try {
+    const res = await fetch("/api/statuts");
+    const rows = await res.json();
+    ACTIVE = new Set(rows.map(r => `${r.salle}||${r.poste}`));
+  } catch (e) {
+    ACTIVE = new Set();
+  }
+}
+
+function applyStatuts() {
+  if (!ACTIVE_SALLE) return;
+  document.querySelectorAll("[data-poste]").forEach(elx => {
+    const key = `${ACTIVE_SALLE}||${elx.dataset.poste}`;
+    elx.classList.toggle("signale", ACTIVE.has(key));
+  });
+}
 
 const svgns = "http://www.w3.org/2000/svg";
 
@@ -27,7 +47,8 @@ function renderGrid(svg, roomCode, elDef) {
       const x = elDef.x + ci * CELL_W;
       const y = elDef.y + ri * CELL_H;
       const isVpi = typeof val === "string" && val.startsWith("VPI");
-      const g2 = el("g", { class: "seat" + (isVpi ? " vpi" : "") });
+      const posteName = isVpi ? `${roomCode}-${val}` : `${roomCode}-P${String(val).padStart(2, "0")}`;
+      const g2 = el("g", { class: "seat" + (isVpi ? " vpi" : ""), "data-poste": posteName });
       g2.appendChild(el("rect", { x, y, width: CELL_W, height: CELL_H, rx: 0.04 }));
       const num = isVpi ? val : String(val).padStart(2, "0");
       const t1 = el("text", { x: x + CELL_W / 2, y: y + CELL_H * 0.42, "font-size": isVpi ? CELL_H * 0.28 : CELL_H * 0.36 });
@@ -38,7 +59,6 @@ function renderGrid(svg, roomCode, elDef) {
         t2.textContent = `${roomCode}-P${String(val).padStart(2, "0")}`;
         g2.appendChild(t2);
       }
-      const posteName = isVpi ? `${roomCode}-${val}` : `${roomCode}-P${String(val).padStart(2, "0")}`;
       g2.addEventListener("click", () => openModal(roomCode, posteName));
       svg.appendChild(g2);
     });
@@ -70,18 +90,19 @@ function renderHexpod(svg, roomCode, elDef) {
   values.forEach((val, i) => {
     const [fx, fy] = HEX_OFFSETS[i];
     const cx = x + fx * w, cy = y + fy * h;
-    const g = el("g", { class: "seat" });
     if (val === null || val === undefined) {
+      const g = el("g", { class: "seat" });
       const t = el("text", { x: cx, y: cy, "font-size": h * 0.13, fill: "#808080" });
       t.textContent = "×";
       g.appendChild(t);
       svg.appendChild(g);
       return;
     }
+    const posteName = `${roomCode}-P${String(val).padStart(2, "0")}`;
+    const g = el("g", { class: "seat", "data-poste": posteName });
     const t1 = el("text", { x: cx, y: cy - h * 0.02, "font-size": h * 0.1, fill: "#1f3864", "font-weight": "bold" });
     t1.textContent = String(val).padStart(2, "0");
     const t2 = el("text", { x: cx, y: cy + h * 0.09, "font-size": h * 0.055, fill: "#1f3864" });
-    const posteName = `${roomCode}-P${String(val).padStart(2, "0")}`;
     t2.textContent = posteName;
     g.appendChild(t1); g.appendChild(t2);
     g.addEventListener("click", () => openModal(roomCode, posteName));
@@ -103,7 +124,8 @@ function renderFreecells(svg, roomCode, elDef) {
   }
   for (const [x, y, val] of elDef.cells) {
     const isVpi = typeof val === "string" && val.startsWith("VPI");
-    const g2 = el("g", { class: "seat" + (isVpi ? " vpi" : "") });
+    const posteName = isVpi ? `${roomCode}-${val}` : `${roomCode}-P${String(val).padStart(2, "0")}`;
+    const g2 = el("g", { class: "seat" + (isVpi ? " vpi" : ""), "data-poste": posteName });
     g2.appendChild(el("rect", { x, y, width: CELL_W, height: CELL_H, rx: 0.04 }));
     const num = isVpi ? val : String(val).padStart(2, "0");
     const t1 = el("text", { x: x + CELL_W / 2, y: y + CELL_H * 0.42, "font-size": CELL_H * 0.36 });
@@ -114,7 +136,6 @@ function renderFreecells(svg, roomCode, elDef) {
       t2.textContent = `${roomCode}-P${String(val).padStart(2, "0")}`;
       g2.appendChild(t2);
     }
-    const posteName = isVpi ? `${roomCode}-${val}` : `${roomCode}-P${String(val).padStart(2, "0")}`;
     g2.addEventListener("click", () => openModal(roomCode, posteName));
     svg.appendChild(g2);
   }
@@ -141,6 +162,7 @@ function renderToolbar(roomCode, vp, son) {
   if (vp) {
     const b = document.createElement("button");
     b.className = "btn-equip";
+    b.dataset.poste = `${roomCode}-VPI`;
     b.textContent = "📽️ Signaler le vidéoprojecteur";
     b.onclick = () => openModal(roomCode, `${roomCode}-VPI`);
     bar.appendChild(b);
@@ -148,6 +170,7 @@ function renderToolbar(roomCode, vp, son) {
   if (son) {
     const b = document.createElement("button");
     b.className = "btn-equip";
+    b.dataset.poste = `${roomCode}-SON`;
     b.textContent = "🔊 Signaler le son";
     b.onclick = () => openModal(roomCode, `${roomCode}-SON`);
     bar.appendChild(b);
@@ -159,9 +182,11 @@ function onSalleChange() {
   if (!value) {
     document.getElementById("plan-wrap").innerHTML = '<div class="empty-msg">Sélectionnez une salle ci-dessus.</div>';
     document.getElementById("toolbar").innerHTML = "";
+    ACTIVE_SALLE = null;
     return;
   }
   const [kind, code] = value.split(":");
+  ACTIVE_SALLE = code;
   if (kind === "lab") {
     const room = LAB_ROOMS.find(r => r.code === code);
     renderToolbar(room.code, true, true);
@@ -172,13 +197,13 @@ function onSalleChange() {
       '<div class="empty-msg">Salle sans plan de postes numérotés — utilisez les boutons ci-dessus.</div>';
     renderToolbar(room.code, !!room.vp, !!room.son);
   }
+  applyStatuts();
 }
 
 function openModal(salle, poste) {
   current = { salle, poste };
   document.getElementById("modal-title").textContent = `Signalement — ${salle} / ${poste}`;
   document.getElementById("description").value = "";
-  document.getElementById("photo").value = "";
   document.getElementById("prenom").value = localStorage.getItem("15duclic_prenom") || "";
   document.querySelector('input[name="type"][value="Panne matériel"]').checked = true;
   document.getElementById("modal").showModal();
@@ -197,7 +222,6 @@ async function envoyerSignalement() {
   if (!prenom) { showToast("Merci d'indiquer votre prénom.", true); return; }
   const type = document.querySelector('input[name="type"]:checked').value;
   const description = document.getElementById("description").value.trim();
-  const photoInput = document.getElementById("photo");
 
   localStorage.setItem("15duclic_prenom", prenom);
 
@@ -207,7 +231,6 @@ async function envoyerSignalement() {
   fd.append("prenom", prenom);
   fd.append("type", type);
   fd.append("description", description);
-  if (photoInput.files[0]) fd.append("photo", photoInput.files[0]);
 
   const btn = document.getElementById("btn-envoyer");
   btn.disabled = true; btn.textContent = "Envoi...";
@@ -216,6 +239,8 @@ async function envoyerSignalement() {
     if (!res.ok) throw new Error("Erreur serveur");
     document.getElementById("modal").close();
     showToast("Signalement envoyé, merci !");
+    await fetchStatuts();
+    applyStatuts();
   } catch (e) {
     showToast("Échec de l'envoi — réessayez.", true);
   } finally {
@@ -257,6 +282,10 @@ async function init() {
   select.addEventListener("change", onSalleChange);
   document.getElementById("btn-annuler").addEventListener("click", () => document.getElementById("modal").close());
   document.getElementById("btn-envoyer").addEventListener("click", envoyerSignalement);
+
+  await fetchStatuts();
+  applyStatuts();
+  setInterval(async () => { await fetchStatuts(); applyStatuts(); }, 20000);
 }
 
 init();
