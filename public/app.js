@@ -156,14 +156,30 @@ function renderLabRoom(room) {
   wrap.appendChild(svg);
 }
 
-function renderToolbar(roomCode, vp, son) {
+// Une salle peut avoir jusqu'à 3 éléments distincts à signaler, en plus des
+// postes élèves numérotés :
+// - le vidéoprojecteur lui-même (matériel) -> "<salle>-VP"
+// - le poste VPI, c'est-à-dire le PC prof branché au vidéoprojecteur -> "<salle>-VPI"
+// - le son -> "<salle>-SON"
+// Dans les salles informatiques dont le plan affiche déjà une case "VPI"
+// (le poste prof fait partie de la disposition des postes), on n'ajoute pas
+// de bouton "poste VPI" en plus pour éviter un doublon.
+function renderToolbar(roomCode, { vp, son, posteVpi }) {
   const bar = document.getElementById("toolbar");
   bar.innerHTML = "";
   if (vp) {
     const b = document.createElement("button");
     b.className = "btn-equip";
-    b.dataset.poste = `${roomCode}-VPI`;
+    b.dataset.poste = `${roomCode}-VP`;
     b.textContent = "📽️ Signaler le vidéoprojecteur";
+    b.onclick = () => openModal(roomCode, `${roomCode}-VP`);
+    bar.appendChild(b);
+  }
+  if (posteVpi) {
+    const b = document.createElement("button");
+    b.className = "btn-equip";
+    b.dataset.poste = `${roomCode}-VPI`;
+    b.textContent = "🖥️ Signaler le poste VPI (PC prof)";
     b.onclick = () => openModal(roomCode, `${roomCode}-VPI`);
     bar.appendChild(b);
   }
@@ -175,6 +191,14 @@ function renderToolbar(roomCode, vp, son) {
     b.onclick = () => openModal(roomCode, `${roomCode}-SON`);
     bar.appendChild(b);
   }
+}
+
+function roomPlanHasPosteVpi(room) {
+  for (const e of room.elements) {
+    if (e.kind === "grid" && e.grid.some(row => row.some(v => typeof v === "string" && v.startsWith("VPI")))) return true;
+    if (e.kind === "freecells" && e.cells.some(([, , v]) => typeof v === "string" && v.startsWith("VPI"))) return true;
+  }
+  return false;
 }
 
 function onSalleChange() {
@@ -189,13 +213,13 @@ function onSalleChange() {
   ACTIVE_SALLE = code;
   if (kind === "lab") {
     const room = LAB_ROOMS.find(r => r.code === code);
-    renderToolbar(room.code, true, true);
+    renderToolbar(room.code, { vp: true, son: true, posteVpi: !roomPlanHasPosteVpi(room) });
     renderLabRoom(room);
   } else {
     const room = CLASSIC_ROOMS.find(r => r.code === code);
     document.getElementById("plan-wrap").innerHTML =
       '<div class="empty-msg">Salle sans plan de postes numérotés — utilisez les boutons ci-dessus.</div>';
-    renderToolbar(room.code, !!room.vp, !!room.son);
+    renderToolbar(room.code, { vp: !!room.vp, son: !!room.son, posteVpi: !!room.vp });
   }
   applyStatuts();
 }
