@@ -85,7 +85,7 @@ function hexPathPoints(x, y, w, h) {
 
 function renderHexpod(svg, roomCode, elDef) {
   const { x, y, w, h, values } = elDef;
-  const poly = el("polygon", { points: hexPathPoints(x, y, w, h) });
+  const poly = el("polygon", { points: hexPathPoints(x, y, w, h), class: "hex-frame" });
   svg.appendChild(poly);
   values.forEach((val, i) => {
     const [fx, fy] = HEX_OFFSETS[i];

@@ -89,8 +89,14 @@ svg#plan { width: 100%; height: auto; display: block; }
 }
 .seat rect, .seat polygon {
   stroke: #2e5496;
-  stroke-width: 2;
+  stroke-width: 0.02;
   fill: var(--bleu-clair);
+}
+
+.hex-frame {
+  fill: none;
+  stroke: var(--bleu);
+  stroke-width: 0.02;
 }
 .seat.vpi rect, .seat.vpi polygon {
   fill: var(--orange);
