@@ -13,10 +13,10 @@ function checkAuth(request, env) {
       // identifiants mal formés -> refusé ci-dessous
     }
   }
-  return new Response("Accès restreint", {
-    status: 401,
-    headers: { "WWW-Authenticate": 'Basic realm="Le 15 du Clic - admin"' },
-  });
+  // Pas de WWW-Authenticate ici : on ne veut jamais que le navigateur affiche
+  // sa propre popup native, la page admin gère l'authentification elle-même
+  // via un formulaire (fiable sur tous les navigateurs, y compris mobile).
+  return new Response("Accès restreint", { status: 401 });
 }
 
 async function handleReportPost(request, env) {
