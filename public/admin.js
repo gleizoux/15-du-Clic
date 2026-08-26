@@ -1,4 +1,9 @@
 let ALL = [];
+let MDP = "";
+
+function authHeader() {
+  return { Authorization: "Basic " + btoa("admin:" + MDP) };
+}
 
 function statutClass(s) {
   return "statut-" + s.replace(/\s+/g, "-").normalize("NFD").replace(/[̀-ͯ]/g, "");
@@ -13,7 +18,7 @@ function fmtDate(iso) {
 async function changerStatut(id, statut) {
   const res = await fetch(`/api/report/${id}/statut`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...authHeader() },
     body: JSON.stringify({ statut }),
   });
   if (!res.ok) alert("Échec de la mise à jour du statut.");
@@ -75,12 +80,39 @@ function fillSalleFilter() {
 
 async function charger() {
   document.getElementById("table-wrap").textContent = "Chargement…";
-  const res = await fetch("/api/reports");
+  const res = await fetch("/api/reports", { headers: authHeader() });
   if (res.status === 401) {
-    document.getElementById("table-wrap").innerHTML =
-      "<p>Authentification requise — rechargez la page et entrez le mot de passe partagé.</p>";
+    seDeconnecter("Mot de passe incorrect.");
     return;
   }
+  ALL = await res.json();
+  fillSalleFilter();
+  render();
+}
+
+function seDeconnecter(erreur) {
+  MDP = "";
+  sessionStorage.removeItem("15duclic_admin_mdp");
+  document.getElementById("admin-content").style.display = "none";
+  document.getElementById("login").style.display = "block";
+  document.getElementById("login-erreur").textContent = erreur || "";
+  document.getElementById("login-mdp").value = "";
+  document.getElementById("login-mdp").focus();
+}
+
+async function tenterConnexion() {
+  const mdp = document.getElementById("login-mdp").value;
+  if (!mdp) return;
+  MDP = mdp;
+  const res = await fetch("/api/reports", { headers: authHeader() });
+  if (res.status === 401) {
+    MDP = "";
+    document.getElementById("login-erreur").textContent = "Mot de passe incorrect.";
+    return;
+  }
+  sessionStorage.setItem("15duclic_admin_mdp", mdp);
+  document.getElementById("login").style.display = "none";
+  document.getElementById("admin-content").style.display = "block";
   ALL = await res.json();
   fillSalleFilter();
   render();
@@ -89,5 +121,15 @@ async function charger() {
 document.getElementById("f-salle").addEventListener("change", render);
 document.getElementById("f-statut").addEventListener("change", render);
 document.getElementById("btn-refresh").addEventListener("click", charger);
+document.getElementById("btn-login").addEventListener("click", tenterConnexion);
+document.getElementById("login-mdp").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") tenterConnexion();
+});
 
-charger();
+const mdpSauve = sessionStorage.getItem("15duclic_admin_mdp");
+if (mdpSauve) {
+  document.getElementById("login-mdp").value = mdpSauve;
+  tenterConnexion();
+} else {
+  document.getElementById("login-mdp").focus();
+}

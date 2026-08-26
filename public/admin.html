@@ -16,6 +16,12 @@
   #filtres { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1rem; }
   #filtres select, #filtres input { padding: 0.4rem; border-radius: 6px; border: 1px solid #ccc; }
   select.statut-select { padding: 0.3rem; }
+  #login { max-width: 320px; margin: 3rem auto; text-align: center; }
+  #login input {
+    width: 100%; padding: 0.7rem; border-radius: 8px; border: 1px solid #ccc;
+    font-size: 1rem; margin-bottom: 0.8rem; box-sizing: border-box;
+  }
+  #login-erreur { color: var(--danger); min-height: 1.2rem; margin-bottom: 0.5rem; }
 </style>
 </head>
 <body>
@@ -25,17 +31,25 @@
   <a href="/">← Retour à l'app</a>
 </header>
 <main style="max-width:1100px;">
-  <div id="filtres">
-    <select id="f-salle"><option value="">Toutes les salles</option></select>
-    <select id="f-statut">
-      <option value="">Tous les statuts</option>
-      <option value="nouveau">Nouveau</option>
-      <option value="en cours">En cours</option>
-      <option value="résolu">Résolu</option>
-    </select>
-    <button class="secondary" id="btn-refresh">🔄 Actualiser</button>
+  <div id="login">
+    <p>Mot de passe partagé pour la consultation des signalements :</p>
+    <input type="password" id="login-mdp" placeholder="Mot de passe" autocomplete="current-password">
+    <div id="login-erreur"></div>
+    <button class="primary" id="btn-login">Se connecter</button>
   </div>
-  <div id="table-wrap">Chargement…</div>
+  <div id="admin-content" style="display:none;">
+    <div id="filtres">
+      <select id="f-salle"><option value="">Toutes les salles</option></select>
+      <select id="f-statut">
+        <option value="">Tous les statuts</option>
+        <option value="nouveau">Nouveau</option>
+        <option value="en cours">En cours</option>
+        <option value="résolu">Résolu</option>
+      </select>
+      <button class="secondary" id="btn-refresh">🔄 Actualiser</button>
+    </div>
+    <div id="table-wrap">Chargement…</div>
+  </div>
 </main>
 <div id="toast"></div>
 <script src="/admin.js"></script>
