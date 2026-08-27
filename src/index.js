@@ -97,6 +97,13 @@ export default {
     if (path === "/api/statuts" && method === "GET") {
       return handleStatutsGet(request, env);
     }
+    // TEMPORAIRE (diagnostic) : ne révèle jamais la valeur, juste sa présence.
+    if (path === "/api/debug-env" && method === "GET") {
+      return new Response(JSON.stringify({
+        present: typeof env.ADMIN_PASSWORD !== "undefined",
+        length: (env.ADMIN_PASSWORD || "").length,
+      }), { headers: { "Content-Type": "application/json" } });
+    }
     const statutMatch = path.match(/^\/api\/report\/([^/]+)\/statut$/);
     if (statutMatch && method === "POST") {
       return handleStatutPost(request, env, statutMatch[1]);
