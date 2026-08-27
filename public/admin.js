@@ -35,24 +35,25 @@ function render() {
   }
 
   let html = "<table><thead><tr>" +
-    "<th>Date</th><th>Salle</th><th>Poste</th><th>Prénom</th><th>Type</th><th>Description</th><th>Statut</th>" +
+    "<th>Date</th><th>Salle</th><th>Poste</th><th>Statut</th><th>Prénom</th><th>Type</th><th>Description</th>" +
     "</tr></thead><tbody>";
 
   for (const r of rows) {
     html += `<tr class="${statutClass(r.statut)}">` +
-      `<td>${fmtDate(r.created_at)}</td>` +
-      `<td>${r.salle}</td>` +
-      `<td>${r.poste}</td>` +
-      `<td>${r.prenom || ""}</td>` +
-      `<td>${r.type}</td>` +
-      `<td>${(r.description || "").replace(/</g, "&lt;")}</td>` +
-      `<td>
+      `<td data-label="Date">${fmtDate(r.created_at)}</td>` +
+      `<td data-label="Salle">${r.salle}</td>` +
+      `<td data-label="Poste">${r.poste}</td>` +
+      `<td data-label="Statut">
         <select class="statut-select" data-id="${r.id}">
           <option value="nouveau" ${r.statut === "nouveau" ? "selected" : ""}>Nouveau</option>
           <option value="en cours" ${r.statut === "en cours" ? "selected" : ""}>En cours</option>
           <option value="résolu" ${r.statut === "résolu" ? "selected" : ""}>Résolu</option>
         </select>
-      </td></tr>`;
+      </td>` +
+      `<td data-label="Prénom">${r.prenom || ""}</td>` +
+      `<td data-label="Type">${r.type}</td>` +
+      `<td data-label="Description">${(r.description || "").replace(/</g, "&lt;")}</td>` +
+      `</tr>`;
   }
   html += "</tbody></table>";
   document.getElementById("table-wrap").innerHTML = html;

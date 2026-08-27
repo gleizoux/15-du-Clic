@@ -51,11 +51,11 @@ function renderGrid(svg, roomCode, elDef) {
       const g2 = el("g", { class: "seat" + (isVpi ? " vpi" : ""), "data-poste": posteName });
       g2.appendChild(el("rect", { x, y, width: CELL_W, height: CELL_H, rx: 0.04 }));
       const num = isVpi ? val : String(val).padStart(2, "0");
-      const t1 = el("text", { x: x + CELL_W / 2, y: y + CELL_H * 0.42, "font-size": isVpi ? CELL_H * 0.28 : CELL_H * 0.36 });
+      const t1 = el("text", { x: x + CELL_W / 2, y: y + CELL_H * 0.44, "font-size": isVpi ? CELL_H * 0.4 : CELL_H * 0.55 });
       t1.textContent = num;
       g2.appendChild(t1);
       if (!isVpi) {
-        const t2 = el("text", { x: x + CELL_W / 2, y: y + CELL_H * 0.75, class: "code", "font-size": CELL_H * 0.16 });
+        const t2 = el("text", { x: x + CELL_W / 2, y: y + CELL_H * 0.78, class: "code", "font-size": CELL_H * 0.22 });
         t2.textContent = `${roomCode}-P${String(val).padStart(2, "0")}`;
         g2.appendChild(t2);
       }
@@ -87,11 +87,12 @@ function renderHexpod(svg, roomCode, elDef) {
   const { x, y, w, h, values } = elDef;
   const poly = el("polygon", { points: hexPathPoints(x, y, w, h), class: "hex-frame" });
   svg.appendChild(poly);
+  const r = Math.min(w, h) * 0.155;
   values.forEach((val, i) => {
     const [fx, fy] = HEX_OFFSETS[i];
     const cx = x + fx * w, cy = y + fy * h;
     if (val === null || val === undefined) {
-      const g = el("g", { class: "seat" });
+      const g = el("g", { class: "seat-empty" });
       const t = el("text", { x: cx, y: cy, "font-size": h * 0.13, fill: "#808080" });
       t.textContent = "×";
       g.appendChild(t);
@@ -100,9 +101,10 @@ function renderHexpod(svg, roomCode, elDef) {
     }
     const posteName = `${roomCode}-P${String(val).padStart(2, "0")}`;
     const g = el("g", { class: "seat", "data-poste": posteName });
-    const t1 = el("text", { x: cx, y: cy - h * 0.02, "font-size": h * 0.1, fill: "#1f3864", "font-weight": "bold" });
+    g.appendChild(el("circle", { cx, cy, r }));
+    const t1 = el("text", { x: cx, y: cy - h * 0.03, "font-size": h * 0.16, "font-weight": "bold" });
     t1.textContent = String(val).padStart(2, "0");
-    const t2 = el("text", { x: cx, y: cy + h * 0.09, "font-size": h * 0.055, fill: "#1f3864" });
+    const t2 = el("text", { x: cx, y: cy + h * 0.11, class: "code", "font-size": h * 0.075 });
     t2.textContent = posteName;
     g.appendChild(t1); g.appendChild(t2);
     g.addEventListener("click", () => openModal(roomCode, posteName));
@@ -128,11 +130,11 @@ function renderFreecells(svg, roomCode, elDef) {
     const g2 = el("g", { class: "seat" + (isVpi ? " vpi" : ""), "data-poste": posteName });
     g2.appendChild(el("rect", { x, y, width: CELL_W, height: CELL_H, rx: 0.04 }));
     const num = isVpi ? val : String(val).padStart(2, "0");
-    const t1 = el("text", { x: x + CELL_W / 2, y: y + CELL_H * 0.42, "font-size": CELL_H * 0.36 });
+    const t1 = el("text", { x: x + CELL_W / 2, y: y + CELL_H * 0.44, "font-size": CELL_H * 0.55 });
     t1.textContent = num;
     g2.appendChild(t1);
     if (!isVpi) {
-      const t2 = el("text", { x: x + CELL_W / 2, y: y + CELL_H * 0.75, class: "code", "font-size": CELL_H * 0.16 });
+      const t2 = el("text", { x: x + CELL_W / 2, y: y + CELL_H * 0.78, class: "code", "font-size": CELL_H * 0.22 });
       t2.textContent = `${roomCode}-P${String(val).padStart(2, "0")}`;
       g2.appendChild(t2);
     }
