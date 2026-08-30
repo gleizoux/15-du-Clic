@@ -11,6 +11,13 @@ let CLASSIC_ROOMS = [];
 let current = null; // { salle, poste } en attente de signalement
 let ACTIVE_SALLE = null; // salle actuellement affichée
 let ACTIVE = new Set(); // clés "salle||poste" ayant un signalement non résolu
+let QUESTION_MODE = false; // vrai quand "Autre question" est sélectionné
+
+function escapeHtml(s) {
+  return (s || "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  }[c]));
+}
 
 async function fetchStatuts() {
   try {
@@ -205,13 +212,24 @@ function roomPlanHasPosteVpi(room) {
 
 function onSalleChange() {
   const value = document.getElementById("salle").value;
+  QUESTION_MODE = false;
   if (!value) {
     document.getElementById("plan-wrap").innerHTML = '<div class="empty-msg">Sélectionnez une salle ci-dessus.</div>';
     document.getElementById("toolbar").innerHTML = "";
+    document.getElementById("legende").style.display = "";
     ACTIVE_SALLE = null;
     return;
   }
   const [kind, code] = value.split(":");
+  if (kind === "other" && code === "question") {
+    ACTIVE_SALLE = null;
+    QUESTION_MODE = true;
+    document.getElementById("toolbar").innerHTML = "";
+    document.getElementById("legende").style.display = "none";
+    renderQuestionsPanel();
+    return;
+  }
+  document.getElementById("legende").style.display = "";
   ACTIVE_SALLE = code;
   if (kind === "lab") {
     const room = LAB_ROOMS.find(r => r.code === code);
@@ -224,6 +242,83 @@ function onSalleChange() {
     renderToolbar(room.code, { vp: !!room.vp, son: !!room.son, posteVpi: !!room.vp });
   }
   applyStatuts();
+}
+
+async function fetchQuestions() {
+  try {
+    const res = await fetch("/api/questions");
+    return await res.json();
+  } catch (e) {
+    return [];
+  }
+}
+
+async function renderQuestionsPanel(silent) {
+  const wrap = document.getElementById("plan-wrap");
+  if (!silent) wrap.innerHTML = '<div class="empty-msg">Chargement…</div>';
+  const questions = await fetchQuestions();
+  if (!QUESTION_MODE) return; // l'utilisateur a changé de salle entre-temps
+
+  let html = '<div class="questions-wrap">' +
+    '<button class="primary" id="btn-poser-question">❓ Poser une question</button>' +
+    '<div id="liste-questions">';
+
+  if (questions.length === 0) {
+    html += '<p class="empty-msg">Aucune question pour l\'instant — soyez le premier !</p>';
+  } else {
+    for (const q of questions) {
+      const repondue = !!q.reponse;
+      html += `<div class="question-card ${repondue ? "repondue" : "en-attente"}">` +
+        `<div class="q-meta">${escapeHtml(q.prenom)} · ${fmtDateFr(q.created_at)}</div>` +
+        `<div class="q-texte">${escapeHtml(q.question)}</div>` +
+        (repondue
+          ? `<div class="q-reponse"><strong>Réponse :</strong> ${escapeHtml(q.reponse)}</div>`
+          : `<div class="q-attente">En attente de réponse…</div>`) +
+        `</div>`;
+    }
+  }
+  html += "</div></div>";
+  wrap.innerHTML = html;
+  document.getElementById("btn-poser-question").addEventListener("click", openQuestionModal);
+}
+
+function fmtDateFr(iso) {
+  try {
+    return new Date(iso + "Z").toLocaleString("fr-FR");
+  } catch (e) { return iso; }
+}
+
+function openQuestionModal() {
+  document.getElementById("q-texte").value = "";
+  document.getElementById("q-prenom").value = localStorage.getItem("15duclic_prenom") || "";
+  document.getElementById("modal-question").showModal();
+}
+
+async function envoyerQuestion() {
+  const prenom = document.getElementById("q-prenom").value.trim();
+  const question = document.getElementById("q-texte").value.trim();
+  if (!prenom) { showToast("Merci d'indiquer votre prénom.", true); return; }
+  if (!question) { showToast("Merci d'écrire votre question.", true); return; }
+
+  localStorage.setItem("15duclic_prenom", prenom);
+
+  const fd = new FormData();
+  fd.append("prenom", prenom);
+  fd.append("question", question);
+
+  const btn = document.getElementById("btn-q-envoyer");
+  btn.disabled = true; btn.textContent = "Envoi...";
+  try {
+    const res = await fetch("/api/question", { method: "POST", body: fd });
+    if (!res.ok) throw new Error("Erreur serveur");
+    document.getElementById("modal-question").close();
+    showToast("Question envoyée, merci !");
+    if (QUESTION_MODE) await renderQuestionsPanel();
+  } catch (e) {
+    showToast("Échec de l'envoi — réessayez.", true);
+  } finally {
+    btn.disabled = false; btn.textContent = "Envoyer";
+  }
 }
 
 function openModal(salle, poste) {
@@ -305,13 +400,27 @@ async function init() {
   }
   select.appendChild(gClassic);
 
+  const gAutre = document.createElement("optgroup");
+  gAutre.label = "Autre";
+  const oQuestion = document.createElement("option");
+  oQuestion.value = "other:question";
+  oQuestion.textContent = "Autre question";
+  gAutre.appendChild(oQuestion);
+  select.appendChild(gAutre);
+
   select.addEventListener("change", onSalleChange);
   document.getElementById("btn-annuler").addEventListener("click", () => document.getElementById("modal").close());
   document.getElementById("btn-envoyer").addEventListener("click", envoyerSignalement);
+  document.getElementById("btn-q-annuler").addEventListener("click", () => document.getElementById("modal-question").close());
+  document.getElementById("btn-q-envoyer").addEventListener("click", envoyerQuestion);
 
   await fetchStatuts();
   applyStatuts();
-  setInterval(async () => { await fetchStatuts(); applyStatuts(); }, 20000);
+  setInterval(async () => {
+    await fetchStatuts();
+    applyStatuts();
+    if (QUESTION_MODE) await renderQuestionsPanel(true);
+  }, 20000);
 }
 
 init();

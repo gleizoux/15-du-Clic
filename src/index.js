@@ -82,6 +82,55 @@ async function handleStatutPost(request, env, id) {
   return new Response("OK");
 }
 
+async function handleQuestionPost(request, env) {
+  let form;
+  try {
+    form = await request.formData();
+  } catch (e) {
+    return new Response("Requête invalide", { status: 400 });
+  }
+
+  const prenom = (form.get("prenom") || "").toString().trim();
+  const question = (form.get("question") || "").toString().trim();
+
+  if (!prenom || !question) {
+    return new Response("Champs obligatoires manquants", { status: 400 });
+  }
+
+  await env.DB.prepare(
+    `INSERT INTO questions (prenom, question) VALUES (?, ?)`
+  ).bind(prenom, question).run();
+
+  return new Response("OK", { status: 201 });
+}
+
+// Endpoint public (pas d'auth) : les questions et leurs réponses sont
+// visibles de tous, seule la réponse elle-même passe par l'admin.
+async function handleQuestionsGet(request, env) {
+  const { results } = await env.DB.prepare(
+    "SELECT id, prenom, question, reponse, created_at, reponse_at FROM questions ORDER BY created_at DESC"
+  ).all();
+
+  return new Response(JSON.stringify(results), { headers: { "Content-Type": "application/json" } });
+}
+
+async function handleQuestionReponsePost(request, env, id) {
+  const denied = checkAuth(request, env);
+  if (denied) return denied;
+
+  const body = await request.json().catch(() => null);
+  const reponse = body && typeof body.reponse === "string" ? body.reponse.trim() : "";
+  if (!reponse) {
+    return new Response("Réponse vide", { status: 400 });
+  }
+
+  await env.DB.prepare(
+    "UPDATE questions SET reponse = ?, reponse_at = datetime('now') WHERE id = ?"
+  ).bind(reponse, id).run();
+
+  return new Response("OK");
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -100,6 +149,16 @@ export default {
     const statutMatch = path.match(/^\/api\/report\/([^/]+)\/statut$/);
     if (statutMatch && method === "POST") {
       return handleStatutPost(request, env, statutMatch[1]);
+    }
+    if (path === "/api/question" && method === "POST") {
+      return handleQuestionPost(request, env);
+    }
+    if (path === "/api/questions" && method === "GET") {
+      return handleQuestionsGet(request, env);
+    }
+    const questionReponseMatch = path.match(/^\/api\/question\/([^/]+)\/reponse$/);
+    if (questionReponseMatch && method === "POST") {
+      return handleQuestionReponsePost(request, env, questionReponseMatch[1]);
     }
 
     // tout le reste : fichiers statiques (public/)

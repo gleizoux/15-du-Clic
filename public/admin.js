@@ -1,8 +1,15 @@
 let ALL = [];
+let ALL_Q = [];
 let MDP = "";
 
 function authHeader() {
   return { Authorization: "Basic " + btoa("admin:" + MDP) };
+}
+
+function escapeHtml(s) {
+  return (s || "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  }[c]));
 }
 
 function statutClass(s) {
@@ -70,6 +77,49 @@ function render() {
   });
 }
 
+function renderQuestions() {
+  if (ALL_Q.length === 0) {
+    document.getElementById("questions-wrap").innerHTML = "<p>Aucune question pour l'instant.</p>";
+    return;
+  }
+
+  let html = "";
+  for (const q of ALL_Q) {
+    html += `<div class="question-admin-card">` +
+      `<div class="q-meta">${escapeHtml(q.prenom)} · ${fmtDate(q.created_at)}</div>` +
+      `<div class="q-texte">${escapeHtml(q.question)}</div>` +
+      `<textarea class="q-reponse-input" data-id="${q.id}" placeholder="Votre réponse...">${escapeHtml(q.reponse || "")}</textarea>` +
+      `<button class="secondary btn-repondre" data-id="${q.id}">💾 Enregistrer la réponse</button>` +
+      `</div>`;
+  }
+  document.getElementById("questions-wrap").innerHTML = html;
+
+  document.querySelectorAll(".btn-repondre").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.id;
+      const textarea = document.querySelector(`.q-reponse-input[data-id="${id}"]`);
+      const reponse = textarea.value.trim();
+      if (!reponse) { alert("Écrivez une réponse avant d'enregistrer."); return; }
+      btn.disabled = true; btn.textContent = "Enregistrement...";
+      const res = await fetch(`/api/question/${id}/reponse`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeader() },
+        body: JSON.stringify({ reponse }),
+      });
+      btn.disabled = false; btn.textContent = "💾 Enregistrer la réponse";
+      if (!res.ok) { alert("Échec de l'enregistrement."); return; }
+      const item = ALL_Q.find(x => String(x.id) === String(id));
+      if (item) item.reponse = reponse;
+    });
+  });
+}
+
+async function chargerQuestions() {
+  const res = await fetch("/api/questions");
+  ALL_Q = await res.json();
+  renderQuestions();
+}
+
 function fillSalleFilter() {
   const salles = [...new Set(ALL.map(r => r.salle))].sort();
   const sel = document.getElementById("f-salle");
@@ -89,6 +139,7 @@ async function charger() {
   ALL = await res.json();
   fillSalleFilter();
   render();
+  await chargerQuestions();
 }
 
 function seDeconnecter(erreur) {
@@ -117,6 +168,7 @@ async function tenterConnexion() {
   ALL = await res.json();
   fillSalleFilter();
   render();
+  await chargerQuestions();
 }
 
 document.getElementById("f-salle").addEventListener("change", render);

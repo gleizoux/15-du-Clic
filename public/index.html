@@ -61,6 +61,24 @@
   </div>
 </dialog>
 
+<dialog id="modal-question">
+  <div class="modal-inner">
+    <h2>Poser une question</h2>
+
+    <label for="q-prenom"><strong>Votre prénom</strong></label>
+    <input type="text" id="q-prenom" placeholder="Ex. Xavier" required
+           style="width:100%;padding:0.5rem;border-radius:8px;border:1px solid #ccc;font-size:1rem;margin:0.4rem 0 1rem;">
+
+    <label for="q-texte">Votre question</label>
+    <textarea id="q-texte" placeholder="Écrivez votre question ici..."></textarea>
+
+    <div class="modal-actions">
+      <button class="secondary" id="btn-q-annuler">Annuler</button>
+      <button class="primary" id="btn-q-envoyer">Envoyer</button>
+    </div>
+  </div>
+</dialog>
+
 <div id="toast"></div>
 
 <script src="/app.js"></script>
