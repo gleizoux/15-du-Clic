@@ -12,6 +12,14 @@ function escapeHtml(s) {
   }[c]));
 }
 
+function showToast(msg, isError) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = isError ? "error" : "";
+  t.style.display = "block";
+  setTimeout(() => { t.style.display = "none"; }, 3500);
+}
+
 function statutClass(s) {
   return "statut-" + s.replace(/\s+/g, "-").normalize("NFD").replace(/[̀-ͯ]/g, "");
 }
@@ -110,6 +118,7 @@ function renderQuestions() {
       if (!res.ok) { alert("Échec de l'enregistrement."); return; }
       const item = ALL_Q.find(x => String(x.id) === String(id));
       if (item) item.reponse = reponse;
+      showToast("Réponse enregistrée et publiée !");
     });
   });
 }
